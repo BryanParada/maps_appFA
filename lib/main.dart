@@ -20,7 +20,7 @@ class MapsApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Maps App',
-      home: GpsAccessScreen(),
+      home: LoadingScreen(),
     );
   }
 }
