@@ -1,8 +1,9 @@
  
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:maps_app/views/views.dart';
 import 'package:maps_app/blocs/blocs.dart';
+import 'package:maps_app/views/map_view.dart';
 
 class MapScreen extends StatefulWidget {
    
@@ -40,18 +41,20 @@ class _MapScreenState extends State<MapScreen> {
           if (state.lastKnownLocation == null) return const Center(child: Text('Wait please...'),);
 
 
-      final CameraPosition initialCameraPosition = CameraPosition(
-      target: state.lastKnownLocation!,
-      zoom: 15
-      );
-
+     
           // return Center(
           //   child: Text('${state.lastKnownLocation!.latitude }, ${state.lastKnownLocation!.longitude }')
           // );
+
+          return SingleChildScrollView(
+            child: Stack(
+              children: [
+                MapView( initialLocation: state.lastKnownLocation!,)
+              ],
+             ),
+          );
  
-          return GoogleMap(
-            initialCameraPosition: initialCameraPosition
-            );
+ 
         },
       )
     );
