@@ -16,6 +16,10 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
   LocationBloc() : super( const LocationState()) {
 
+    on<OnStartFollowingUser>((event, emit) => emit(state.copyWith(followingUser: true)));
+    on<OnStopFollowingUser>((event, emit) => emit(state.copyWith(followingUser: false)));
+
+
      on<OnNewUserLocationEvent>((event, emit) {
           emit(state.copyWith(
             lastKnownLocation: event.newLocation,
@@ -35,6 +39,8 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   }
 
   void startFollowingUser(){
+    add(OnStartFollowingUser());
+
     if (!_gpsBloc.state.isAllGranted) return;
     print('startFollowingUser');
     
@@ -49,6 +55,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
   void stopFollowingUser(){
     positionStream?.cancel(); // "?" si tienes un valor cancelalo, si no hay valor no hay nada que cancelar
+    add( OnStopFollowingUser());
     print('stopFollowingUser');
     
   }
