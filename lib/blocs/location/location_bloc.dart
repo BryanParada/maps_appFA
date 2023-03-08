@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' show LatLng;
 import 'package:maps_app/blocs/blocs.dart';
 
 part 'location_event.dart';
@@ -15,8 +16,12 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
   LocationBloc() : super( const LocationState()) {
 
-    on<LocationEvent>((event, emit) {
-      
+     on<OnNewUserLocationEvent>((event, emit) {
+          emit(state.copyWith(
+            lastKnownLocation: event.newLocation,
+            myLocationHistory: [ ...state.myLocationHistory, event.newLocation], //sparce todo lo de mylocationHistory y añade al final newLocation
+          )
+        );
     });
   }
 
@@ -25,7 +30,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     final position = await Geolocator.getCurrentPosition();
 
     print('position: $position');
-    //todo: RETORNAR UN OBJETO DE TIPO latlng
+    add( OnNewUserLocationEvent( LatLng( position.latitude, position.longitude)));
     
   }
 
@@ -36,6 +41,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     positionStream = Geolocator.getPositionStream().listen((event) { 
       final position = event;
       print('position: $position');
+      add( OnNewUserLocationEvent( LatLng( position.latitude, position.longitude)));
       
     });
 
