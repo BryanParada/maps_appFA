@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maps_app/views/views.dart';
 import 'package:maps_app/blocs/blocs.dart';
 import 'package:maps_app/views/map_view.dart';
+import 'package:maps_app/widgets/widgets.dart';
 
 class MapScreen extends StatefulWidget {
    
@@ -56,7 +57,15 @@ class _MapScreenState extends State<MapScreen> {
  
  
         },
-      )
+      ),
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: const [
+          BtnCurrentLocation()
+        ],
+      ),
     );
   }
 }
