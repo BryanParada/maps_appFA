@@ -7,7 +7,7 @@ part of 'map_bloc.dart';
 
   const MapState({
      this.isMapInitialized = false, 
-     this.followUser = false});
+     this.followUser = true});
   
   
 
