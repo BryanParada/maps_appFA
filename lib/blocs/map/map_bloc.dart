@@ -19,10 +19,14 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   MapBloc({required this.locationBloc}) : super(const MapState()) { // puede ser const ya que es el estado cuando se inicia
 
     on<OnMapInitializedEvent>(_onInitMap);
+    // on<OnStartFollowingUserMapEvent>((event, emit) => emit( state.copyWith( isFollowingUser: true))); 
+    //ó
+    on<OnStartFollowingUserMapEvent>( _onStartFollowingUser ); 
+    on<OnStopFollowingUserMapEvent>((event, emit) => emit( state.copyWith( isFollowingUser: false))); 
 
     locationBloc.stream.listen( (locationState){
 
-      if ( !state.followUser ) return;
+      if ( !state.isFollowingUser ) return;
       if ( locationState.lastKnownLocation == null) return;
 
       moveCamera( locationState.lastKnownLocation!); 
@@ -38,6 +42,16 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
     emit( state.copyWith(isMapInitialized: true));
 
+  }
+
+  void _onStartFollowingUser(OnStartFollowingUserMapEvent,Emitter<MapState> emit){
+     
+
+      emit( state.copyWith( isFollowingUser: true));
+      if ( locationBloc.state.lastKnownLocation == null) return;
+      //si ya tenemos la ubicacion del usuario entonces
+      //no esperara a cambiar la siguiente coordenada, se movera el mapa inmediatamente
+      moveCamera(locationBloc.state.lastKnownLocation!);
   }
 
   void moveCamera( LatLng newLocation){

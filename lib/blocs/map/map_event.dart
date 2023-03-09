@@ -9,6 +9,12 @@ abstract class MapEvent extends Equatable {
 
 class OnMapInitializedEvent extends MapEvent{
   final GoogleMapController controller;
-
   OnMapInitializedEvent(this.controller); //<-- parametro posicional 
+}
+
+class OnStopFollowingUserMapEvent extends MapEvent{
+
+}
+class OnStartFollowingUserMapEvent extends MapEvent{
+
 }
