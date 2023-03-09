@@ -11,8 +11,7 @@ part 'location_state.dart';
 
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
-  StreamSubscription? positionStream;
-  final GpsBloc _gpsBloc = GpsBloc();
+  StreamSubscription<Position>? positionStream; 
 
   LocationBloc() : super( const LocationState()) {
 
@@ -29,8 +28,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     });
   }
 
-  Future getCurrentPosition() async{
-    if (!_gpsBloc.state.isAllGranted) return;
+  Future getCurrentPosition() async{ 
     final position = await Geolocator.getCurrentPosition();
 
     print('position: $position');
@@ -40,8 +38,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
 
   void startFollowingUser(){
     add(OnStartFollowingUser());
-
-    if (!_gpsBloc.state.isAllGranted) return;
+ 
     print('startFollowingUser');
     
     positionStream = Geolocator.getPositionStream().listen((event) { 
