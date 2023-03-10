@@ -20,3 +20,4 @@ class UpdateUserPolylineEvent extends MapEvent{
   UpdateUserPolylineEvent(this.userLocations);
 }
 
+class OnToggleUserRoute extends MapEvent{}
