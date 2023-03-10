@@ -2,8 +2,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:maps_app/models/models.dart';
 
-class SearchDestinationDelegate extends SearchDelegate{
+class SearchDestinationDelegate extends SearchDelegate<SearchResult>{
 
   SearchDestinationDelegate():super(
     searchFieldLabel: 'Search...'
@@ -26,7 +27,8 @@ class SearchDestinationDelegate extends SearchDelegate{
    return IconButton(
      icon: Icon(Icons.arrow_back_ios),
     onPressed: (){
-      close(context, null);
+      final result = SearchResult(cancel: true);
+      close(context, result);
     }
    );
      
@@ -47,7 +49,8 @@ class SearchDestinationDelegate extends SearchDelegate{
           onTap: (){
             //TODO: regresar algo
 
-            close(context, null);
+            final result = SearchResult(cancel: false, manual: true);
+            close(context, result);
           },
         ),
       ],
