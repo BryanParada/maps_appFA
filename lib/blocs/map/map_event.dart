@@ -12,9 +12,11 @@ class OnMapInitializedEvent extends MapEvent{
   OnMapInitializedEvent(this.controller); //<-- parametro posicional 
 }
 
-class OnStopFollowingUserMapEvent extends MapEvent{
+class OnStopFollowingUserMapEvent extends MapEvent{}
+class OnStartFollowingUserMapEvent extends MapEvent{}
 
+class UpdateUserPolylineEvent extends MapEvent{
+  final List<LatLng> userLocations;
+  UpdateUserPolylineEvent(this.userLocations);
 }
-class OnStartFollowingUserMapEvent extends MapEvent{
 
-}
