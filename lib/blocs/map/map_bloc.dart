@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -14,8 +15,9 @@ part 'map_state.dart';
 class MapBloc extends Bloc<MapEvent, MapState> {
 
   final LocationBloc locationBloc;
-
   GoogleMapController? _mapController;
+
+  StreamSubscription<LocationState>? locationStateSubscription;
 
   MapBloc({required this.locationBloc}) : super(const MapState()) { // puede ser const ya que es el estado cuando se inicia
 
@@ -27,7 +29,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     on<OnToggleUserRoute>((event, emit) => emit( state.copyWith( showMyRoute: !state.showMyRoute)));
     on<UpdateUserPolylineEvent>(_onPolylineNewPoint);
 
-    locationBloc.stream.listen( (locationState){
+    locationStateSubscription = locationBloc.stream.listen( (locationState){
 
       if(locationState.lastKnownLocation != null){
         add(UpdateUserPolylineEvent(locationState.myLocationHistory));
@@ -90,5 +92,11 @@ void _onPolylineNewPoint(UpdateUserPolylineEvent event, Emitter<MapState> emit){
   void moveCamera( LatLng newLocation){
     final cameraUpdate = CameraUpdate.newLatLng( newLocation ); 
     _mapController?.animateCamera(cameraUpdate);
+  }
+
+  @override
+  Future<void> close() {
+    locationStateSubscription?.cancel(); // "?" si tienes un valor cancelalo, si no hay valor no hay nada que cancelar
+    return super.close();
   }
 }
