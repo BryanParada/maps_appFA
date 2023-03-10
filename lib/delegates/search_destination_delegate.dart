@@ -4,6 +4,11 @@
 import 'package:flutter/material.dart';
 
 class SearchDestinationDelegate extends SearchDelegate{
+
+  SearchDestinationDelegate():super(
+    searchFieldLabel: 'Search...'
+  );
+
   @override
   List<Widget>? buildActions(BuildContext context) {
    return [
@@ -34,7 +39,19 @@ class SearchDestinationDelegate extends SearchDelegate{
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Text('buildSuggestions');
+    return ListView(
+      children: [
+        ListTile(
+          leading: const Icon( Icons.location_on_outlined, color: Colors.black) ,
+          title: const Text('Put manual location', style: TextStyle(color: Colors.black)), 
+          onTap: (){
+            //TODO: regresar algo
+
+            close(context, null);
+          },
+        ),
+      ],
+    );
   }
 
 
