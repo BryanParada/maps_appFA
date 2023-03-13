@@ -43,7 +43,7 @@ class MapView extends StatelessWidget {
       
                 //TODO: Markers
                 //TODO: polylines
-                // oncameraMove: ,
+                onCameraMove: ( position ) => mapBloc.mapCenter = position.target , //targe = lat y long
                 ),
       ),
     );

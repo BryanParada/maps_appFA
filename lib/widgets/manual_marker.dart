@@ -1,3 +1,4 @@
+ 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,9 @@ class _ManualMarkerBody extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final size = MediaQuery.of(context).size;
+    final searchBloc = BlocProvider.of<SearchBloc>(context);
+    final locationBloc = BlocProvider.of<LocationBloc>(context);
+    final mapBloc = BlocProvider.of<MapBloc>(context);
 
     return SizedBox(
       width: size.width,
@@ -66,7 +70,16 @@ class _ManualMarkerBody extends StatelessWidget {
                   height: 50,
                   shape: const StadiumBorder(),
                   onPressed: (){
-              
+
+                    //TODO: loading
+
+                    final start = locationBloc.state.lastKnownLocation;
+                    if (start == null) return;
+
+                    final end = mapBloc.mapCenter;
+                    if ( end == null) return;
+
+                    searchBloc.getcoorsStartToEnd(start, end);
                   },
                 ),
               )

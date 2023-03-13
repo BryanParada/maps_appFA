@@ -8,7 +8,7 @@ class TrafficService {
   //para almacenar rutas de trafico
   final Dio _dioTraffic;
 
-  final String _baseTrafficUrl = 'https://api.mapbox.com/directions/v5/mapbox/driving/';
+  final String _baseTrafficUrl = 'https://api.mapbox.com/directions/v5/mapbox/';
 
 
   TrafficService()
