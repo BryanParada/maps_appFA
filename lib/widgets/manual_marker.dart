@@ -94,7 +94,9 @@ class _BtnBack extends StatelessWidget {
         child: IconButton(
           icon: const Icon( Icons.arrow_back_ios_new, color: Colors.black),
           onPressed: (){
-            //TODO: cancelar el marcador manual
+            BlocProvider.of<SearchBloc>(context).add(
+              OnDeactivateManualMarkerEvent()
+            );
           },
         ),
       ),
