@@ -69,7 +69,7 @@ class _ManualMarkerBody extends StatelessWidget {
                   elevation: 0,
                   height: 50,
                   shape: const StadiumBorder(),
-                  onPressed: (){
+                  onPressed: () async {
 
                     //TODO: loading
 
@@ -79,7 +79,8 @@ class _ManualMarkerBody extends StatelessWidget {
                     final end = mapBloc.mapCenter;
                     if ( end == null) return;
 
-                    searchBloc.getcoorsStartToEnd(start, end);
+                    final destination = await searchBloc.getcoorsStartToEnd(start, end);
+                    mapBloc.drawRoutePolyline( destination );
                   },
                 ),
               )
