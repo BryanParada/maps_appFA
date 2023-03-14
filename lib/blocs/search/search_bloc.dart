@@ -21,5 +21,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     final resp = await trafficService.getCoorsStartToEnd(start, end);
 
+    return resp;
+
   }
 }
