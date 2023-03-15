@@ -2,6 +2,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:maps_app/helpers/helpers.dart';
 
 import '../blocs/blocs.dart';
 
@@ -79,8 +80,14 @@ class _ManualMarkerBody extends StatelessWidget {
                     final end = mapBloc.mapCenter;
                     if ( end == null) return;
 
+                    showLoadingMessage(context);
+
+
                     final destination = await searchBloc.getcoorsStartToEnd(start, end);
-                    mapBloc.drawRoutePolyline( destination );
+                    await mapBloc.drawRoutePolyline( destination );
+
+                    searchBloc.add( OnDeactivateManualMarkerEvent());
+                    Navigator.pop(context);
                   },
                 ),
               )
