@@ -5,9 +5,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
 //  const accesToken = 'apikeystring';
- String accesToken = dotenv.env['APIKEY'].toString();
 
 class TrafficInterceptor extends Interceptor {
+
+ String accesToken = dotenv.env['APIKEY'].toString();
+ 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
    
