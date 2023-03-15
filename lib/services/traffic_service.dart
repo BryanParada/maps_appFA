@@ -56,8 +56,9 @@ Future<List<Feature>> getResultsByQuery( LatLng proximity, String query) async{
   final resp = await _dioPlaces.get(url, queryParameters: {
     'proximity': '${proximity.longitude}, ${proximity.latitude}'
   });
-  //usamos fromJson ya que en la solicitud en postman  el Content-Type es json
-  final placesResponse = PlacesResponse.fromJson(resp.data);
+  //usamos fromJson ya que en la solicitud en postman  el Content-Type es json (segun FH)
+  // final placesResponse = PlacesResponse.fromJson(resp.data);
+  final placesResponse = PlacesResponse.fromMap(resp.data);
 
   return placesResponse.features; //Lugares => Features
 

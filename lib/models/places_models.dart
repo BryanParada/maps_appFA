@@ -65,8 +65,8 @@ class Feature {
     final List<double> center;
     final Geometry geometry;
     final List<Context> context;
-    final String matchingText;
-    final String matchingPlaceName;
+    final String? matchingText;
+    final String? matchingPlaceName;
 
     factory Feature.fromJson(String str) => Feature.fromMap(json.decode(str));
 
@@ -123,7 +123,7 @@ class Context {
 
     final String id;
     final ShortCode? shortCode;
-    final String wikidata;
+    final String? wikidata;
     final String mapboxId;
     final String textEn;
     final Language? languageEn;
