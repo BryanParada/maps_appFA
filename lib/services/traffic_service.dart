@@ -47,7 +47,7 @@ class TrafficService {
   }
 
 
-Future getResultsByQuery( LatLng proximity, String query) async{
+Future<List<Feature>> getResultsByQuery( LatLng proximity, String query) async{
 
   if (query.isEmpty) return [];
 
@@ -56,10 +56,10 @@ Future getResultsByQuery( LatLng proximity, String query) async{
   final resp = await _dioPlaces.get(url, queryParameters: {
     'proximity': '${proximity.longitude}, ${proximity.latitude}'
   });
+  //usamos fromJson ya que en la solicitud en postman  el Content-Type es json
+  final placesResponse = PlacesResponse.fromJson(resp.data);
 
-  //TODO: ..fromjson
-
-  return []; //Lugares => Features
+  return placesResponse.features; //Lugares => Features
 
 }
 
