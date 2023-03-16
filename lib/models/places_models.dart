@@ -107,6 +107,12 @@ class Feature {
         "matching_text": matchingText,
         "matching_place_name": matchingPlaceName,
     };
+
+    @override
+  String toString() {
+    //que mostrar cuando se serialize como un string en esta clase Feature
+    return 'Feature: $text';    
+  }
 }
 
 class Context {
