@@ -1,4 +1,4 @@
- 
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,17 +24,25 @@ class SearchBar extends StatelessWidget {
   }
 }
 
-class _SearchBarBody extends StatelessWidget {
+class _SearchBarBody extends StatelessWidget  {
   const _SearchBarBody
 ({super.key});
 
-  void onSearchResults( BuildContext context, SearchResult result){
+  void onSearchResults( BuildContext context, SearchResult result) async{
     
     final searchBloc = BlocProvider.of<SearchBloc>(context);
+    final mapBloc    = BlocProvider.of<MapBloc>(context);
+    final locationBloc    = BlocProvider.of<LocationBloc>(context);
 
     if ( result.manual == true){
       searchBloc.add(OnActivateManualMarkerEvent());
       return;
+    }
+
+    //todo: revisar si tenemos result.position
+    if (result.position != null ) {//siempre tendremos lastknownLocation ya que venimos del mapa
+      final destination = await searchBloc.getcoorsStartToEnd(locationBloc.state.lastKnownLocation!, result.position!);
+      mapBloc.drawRoutePolyline(destination);
     }
 
   }
