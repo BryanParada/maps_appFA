@@ -122,9 +122,9 @@ Future  drawRoutePolyline( RouteDestination destination )async{
     final endMarker = Marker(
       markerId: MarkerId('end'),
       position: destination.points.last,
-       infoWindow: const InfoWindow(
-        title: 'End',
-        snippet: 'This is the end of my route'
+       infoWindow:  InfoWindow(
+        title: destination.endPlace.text, //'end'
+        snippet: destination.endPlace.placeName //'This is the end of my route'
       ),  
     );
 

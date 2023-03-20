@@ -54,7 +54,8 @@ Future<List<Feature>> getResultsByQuery( LatLng proximity, String query) async{
   final url = '$_basePlacesUrl/$query.json';
 
   final resp = await _dioPlaces.get(url, queryParameters: {
-    'proximity': '${proximity.longitude}, ${proximity.latitude}'
+    'proximity': '${proximity.longitude}, ${proximity.latitude}',
+    'limit'    : 7,
   });
   //usamos fromJson ya que en la solicitud en postman  el Content-Type es json (segun FH)
   // final placesResponse = PlacesResponse.fromJson(resp.data);
@@ -63,5 +64,19 @@ Future<List<Feature>> getResultsByQuery( LatLng proximity, String query) async{
   return placesResponse.features; //Lugares => Features
 
 }
+
+ Future<Feature> getInformationByCoors( LatLng coors) async{
+
+  final url = '$_basePlacesUrl/${coors.longitude},${coors.latitude}.json';
+  final resp = await _dioPlaces.get(url, queryParameters: {
+    'limit': 1
+  });
+
+  final placesResponse = PlacesResponse.fromMap(resp.data);
+
+  return placesResponse.features[0];
+
+ } 
+
 
 }
