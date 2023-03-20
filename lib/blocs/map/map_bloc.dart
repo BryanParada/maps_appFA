@@ -108,13 +108,18 @@ Future  drawRoutePolyline( RouteDestination destination )async{
       position: destination.points.first // ó destination.points[0]
     );
 
+    final endMarker = Marker(
+      markerId: MarkerId('end'),
+      position: destination.points.last  
+    );
 
     final currentPolylines = Map<String, Polyline>.from( state.polylines ); //crea copia, siempre se hace un nuevo estado en bloc (state.polylines no debe ser cambiado) 
     currentPolylines['route'] = myRoute;
-    
+
     final currentMarkers = Map<String, Marker>.from( state.markers ); 
     //sobreescribir el marcador que tenga el id de 'start'
     currentMarkers['start'] = startMarker;
+    currentMarkers['end'] = endMarker;
 
       add( DisplayPolylinesEvent(currentPolylines, currentMarkers)); //add emite evento
 }
