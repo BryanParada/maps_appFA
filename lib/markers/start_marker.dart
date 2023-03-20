@@ -9,12 +9,39 @@ class StartMarkerPainter extends CustomPainter{
     final blackPaint = Paint()
                       ..color = Colors.black;
 
+    final whitePaint = Paint()
+                      ..color = Colors.white;
+
     const double circleBlackRadius = 20;
+    const double circleWhiteRadius = 7;
     
+    //circulo negro
     canvas.drawCircle(
       Offset( circleBlackRadius, size.height -circleBlackRadius),
-      20,
+      circleBlackRadius,
       blackPaint);
+
+    //circulo blanco
+    canvas.drawCircle(
+      Offset( circleBlackRadius, size.height -circleBlackRadius),
+      circleWhiteRadius,
+      whitePaint);
+
+    //dibujar una caja blanca
+    final path = Path();
+    path.moveTo(40, 20);
+    path.lineTo(size.width -10, 20 );
+    path.lineTo(size.width -10, 100 );
+    path.lineTo(40, 100 ); 
+
+    //sombra
+    canvas.drawShadow(path, Colors.black, 10, false);
+    //caja
+    canvas.drawPath(path, whitePaint);
+
+    // Caja negra
+    const blackBox = Rect.fromLTWH(40, 20, 70, 80);
+    canvas.drawRect(blackBox, blackPaint);
     
   }
 
