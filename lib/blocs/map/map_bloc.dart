@@ -113,6 +113,7 @@ Future  drawRoutePolyline( RouteDestination destination )async{
 
     //Custom Markers
     final startMarkerIcon = await getAssetImageMarker();
+    final endMarkerIcon   = await getNetworkImageMarker();
 
     final startMarker = Marker(
       markerId: MarkerId('start'),
@@ -127,7 +128,9 @@ Future  drawRoutePolyline( RouteDestination destination )async{
     final endMarker = Marker(
       markerId: MarkerId('end'),
       position: destination.points.last,
-       infoWindow:  InfoWindow(
+      icon: endMarkerIcon,
+      // anchor: const Offset(0,0),
+      infoWindow:  InfoWindow(
         title: destination.endPlace.text, //'end'
         snippet: destination.endPlace.placeName //'This is the end of my route'
       ),  
