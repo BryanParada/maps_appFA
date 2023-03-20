@@ -103,12 +103,19 @@ Future  drawRoutePolyline( RouteDestination destination )async{
     endCap: Cap.roundCap
     );
 
+    double kms = destination.distance / 1000;
+    //redondear
+    kms = (kms * 100).floorToDouble();
+    kms /= 100; //ó kms = kms / 100
+
+    double tripDuration = (destination.duration / 60).floorToDouble();
+
     final startMarker = Marker(
       markerId: MarkerId('start'),
       position: destination.points.first, // ó destination.points[0]
-      infoWindow: const InfoWindow(
+      infoWindow: InfoWindow(
         title: 'Start',
-        snippet: 'This is the start of my route',
+        snippet: 'Kms: $kms, duration: $tripDuration', //This is the start of my route
       ),
     );
 
@@ -134,7 +141,7 @@ Future  drawRoutePolyline( RouteDestination destination )async{
       add( DisplayPolylinesEvent(currentPolylines, currentMarkers)); //add emite evento
 
       await Future.delayed( const Duration( milliseconds: 300));
-      _mapController?.showMarkerInfoWindow(const MarkerId('end'));
+      _mapController?.showMarkerInfoWindow(const MarkerId('start'));
 }
 
   void moveCamera( LatLng newLocation){
