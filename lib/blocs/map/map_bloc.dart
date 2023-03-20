@@ -105,13 +105,23 @@ Future  drawRoutePolyline( RouteDestination destination )async{
 
     final startMarker = Marker(
       markerId: MarkerId('start'),
-      position: destination.points.first // ó destination.points[0]
+      position: destination.points.first, // ó destination.points[0]
+      infoWindow: const InfoWindow(
+        title: 'Start',
+        snippet: 'This is the start of my route',
+      ),
     );
 
     final endMarker = Marker(
       markerId: MarkerId('end'),
-      position: destination.points.last  
+      position: destination.points.last,
+       infoWindow: const InfoWindow(
+        title: 'End',
+        snippet: 'This is the end of my route'
+      ),  
     );
+
+
 
     final currentPolylines = Map<String, Polyline>.from( state.polylines ); //crea copia, siempre se hace un nuevo estado en bloc (state.polylines no debe ser cambiado) 
     currentPolylines['route'] = myRoute;
@@ -122,6 +132,9 @@ Future  drawRoutePolyline( RouteDestination destination )async{
     currentMarkers['end'] = endMarker;
 
       add( DisplayPolylinesEvent(currentPolylines, currentMarkers)); //add emite evento
+
+      await Future.delayed( const Duration( milliseconds: 300));
+      _mapController?.showMarkerInfoWindow(const MarkerId('end'));
 }
 
   void moveCamera( LatLng newLocation){
