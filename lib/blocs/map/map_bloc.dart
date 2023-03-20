@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:maps_app/blocs/blocs.dart';
+import 'package:maps_app/helpers/helpers.dart';
 import 'package:maps_app/models/models.dart';
 import 'package:maps_app/themes/themes.dart';
 
@@ -110,9 +111,13 @@ Future  drawRoutePolyline( RouteDestination destination )async{
 
     double tripDuration = (destination.duration / 60).floorToDouble();
 
+    //Custom Markers
+    final startMarkerIcon = await getAssetImageMarker();
+
     final startMarker = Marker(
       markerId: MarkerId('start'),
       position: destination.points.first, // ó destination.points[0]
+      icon: startMarkerIcon,
       infoWindow: InfoWindow(
         title: 'Start',
         snippet: 'Kms: $kms, duration: $tripDuration', //This is the start of my route
