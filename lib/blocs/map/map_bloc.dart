@@ -115,7 +115,7 @@ Future  drawRoutePolyline( RouteDestination destination )async{
     // final startMarkerIcon = await getAssetImageMarker();
     // final endMarkerIcon   = await getNetworkImageMarker();
 
-    final startMarkerIcon = await getStartCustomMarker( tripDuration, 'my location');
+    final startMarkerIcon = await getStartCustomMarker( tripDuration, 'My location');
     final endMarkerIcon   = await getEndCustomMarker( kms.toInt(), destination.endPlace.text );
 
     final startMarker = Marker(
